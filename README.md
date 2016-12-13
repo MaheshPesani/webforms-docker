@@ -8,6 +8,6 @@
 
 4. docker inspect -f "{{ .NetworkSettings.Networks.nat.IPAddress }}" webformsdocker_web_1
 
-http://{IPAddress}
+    http://{IPAddress}
 
 5. docker-compose -f .\docker-compose.webforms.yml down
