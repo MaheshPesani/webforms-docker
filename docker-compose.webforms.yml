@@ -1,0 +1,31 @@
+version: '2.1'
+services:
+# Database Service
+  db:
+    image: microsoft/mssql-server-2016-express-windows
+    ports:
+      - "1433:1433" # REMARK: This is currently required, needs investigation
+    environment:
+      sa_password: "PassWord0"
+    networks:
+      - webforms-network
+
+# Webapplication Service
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.webforms
+    ports:
+      - "8080:8080"
+    env_file:
+      - ConnectionStrings.env
+    depends_on:
+      - "db"
+    networks:
+      - webforms-network
+
+# Networks   
+networks:
+  webforms-network:
+    external:
+      name: nat
